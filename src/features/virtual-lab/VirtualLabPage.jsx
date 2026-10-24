@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import ActorDistribution from './components/ActorDistribution.jsx';
 import EventTimeline from './components/EventTimeline.jsx';
 import MetricsGrid from './components/MetricsGrid.jsx';
@@ -9,8 +10,12 @@ import { SIMULATION_STATUS } from './engine/simulationConfig.js';
 
 export default function VirtualLabPage() {
   const { state, start, pause, resume, stop, reset, updateParams } = useSimulation();
+  const [canvasKey, setCanvasKey] = useState(0);
 
-  const handleReset = () => reset(state.params);
+  const handleReset = () => {
+    reset(state.params);
+    setCanvasKey((k) => k + 1);
+  };
 
   return (
     <div className="min-h-screen bg-[#09090B] text-[#FAFAFA]">
@@ -61,12 +66,16 @@ export default function VirtualLabPage() {
 
           <WorkloadCharts history={state.history} />
 
-          <div className="grid gap-4 xl:grid-cols-2">
+          <div className="grid gap-4">
             <ActorDistribution
+              key={canvasKey}
               pods={state.pods}
               actorCount={state.params.actorCount}
               incomingRate={state.metrics.incomingRate}
               queue={state.metrics.queue}
+              targetWorkload={state.params.targetWorkload}
+              params={state.params}
+              onParamsChange={updateParams}
             />
             <EventTimeline events={state.events} />
           </div>
