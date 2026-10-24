@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "react-flow": {
+      "source": "existential-birds/beagle",
+      "sourceType": "github",
+      "skillPath": "plugins/beagle-react/skills/react-flow/SKILL.md",
+      "computedHash": "4b33b6315a4526f1f1e7202904597fcd36d0a4cafcf43ae84e527eae051c0ac4"
+    }
+  }
+}
